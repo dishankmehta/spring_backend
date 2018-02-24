@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class ScreenDaoImpl implements ScreenDao {
 
     @Override
     public List<Screen> getAllScreens() {
-        System.out.println("Showing all screens daoooooooooo!!");
         String query = "SELECT * FROM screen";
         return jdbcTemplate.query(query, (rs, rowNum) -> {
             Screen screen = new Screen();
@@ -30,7 +30,6 @@ public class ScreenDaoImpl implements ScreenDao {
 
     @Override
     public Screen getScreenById(Integer id) {
-        System.out.println("Id ----------------------->>>>>> " + id);
         String query = "SELECT * FROM screen WHERE id="+id;
         return jdbcTemplate.query(query, rs -> {
             Screen screen = new Screen();
@@ -44,9 +43,9 @@ public class ScreenDaoImpl implements ScreenDao {
         });
     }
 
+    @Transactional
     @Override
     public Screen updateScreenById(Screen screen) {
-        System.out.println("Updating the screen");
         String query = "UPDATE screen SET id=?, screenTitle=?, screenData=? WHERE id=?";
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(query);

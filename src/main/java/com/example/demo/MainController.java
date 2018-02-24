@@ -4,7 +4,6 @@ import com.example.demo.model.Screen;
 import com.example.demo.service.ScreenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -21,13 +20,13 @@ public class MainController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody Screen getScreen(@PathVariable("id") Integer id){
-        System.out.println("ID:Controller ------------------->" + id);
         return screenService.getScreenById(id);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public @ResponseBody Screen updateScreen(@RequestBody Screen screen){
+    public @ResponseBody Screen updateScreen(@RequestBody Screen screen) {
         return screenService.updateScreenById(screen);
     }
+
 
 }
